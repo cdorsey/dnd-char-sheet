@@ -45,37 +45,10 @@
         @focus="openExpModal()"
       />
     </v-flex>
-    <v-dialog light v-model="expDialog">
-      <v-card>
-        <v-layout column wrap>
-          <v-flex>
-            <v-btn color="info" @click="adjustdExp(10)">+10</v-btn>
-            <v-btn color="info" @click="adjustdExp(100)">+100</v-btn>
-            <v-btn color="info" @click="adjustdExp(1000)">+1000</v-btn>
-          </v-flex>
-          <v-flex>
-            <v-text-field
-              readonly
-              full-width
-              class="text-xs-center display-3"
-              :value="dExpDisplay"
-            />
-          </v-flex>
-          <v-flex>
-            <v-btn color="info" @click="adjustdExp(-10)">-10</v-btn>
-            <v-btn color="info" @click="adjustdExp(-100)">-100</v-btn>
-            <v-btn color="info" @click="adjustdExp(-1000)">-1000</v-btn>
-          </v-flex>
-          <v-flex class="my-2"/>
-          <v-flex class="px-2">
-            <v-btn block color="success" @click="updateExp()">Save</v-btn>
-            <v-btn block color="error" @click="closeExpDialog()">Cancel</v-btn>
-          </v-flex>
-          <v-flex>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </v-dialog>
+    <exp-dialog
+      @close-exp-dialog="closeExpModal()"
+      :dialog-value="expDialog"
+    />
   </v-layout>
 </template>
 
@@ -89,14 +62,17 @@
 
 <script>
 import bindMapToStore from '../mapToStore'
+import ExpDialog from '../components/_ExpDialog.vue'
 
 const mapToStore = bindMapToStore(this);
 
 export default {
+  components: {
+    ExpDialog,
+  },
   data() {
     return {
       expDialog: false,
-      dExp: 0,
     }
   },
   computed: { ...mapToStore([
@@ -132,30 +108,14 @@ export default {
     level: function () {
       return this.$store.state.level;
     },
-    dExpDisplay: function () {
-      const modifier = this.dExp >= 0 ? '+' : ''
-
-      return modifier + this.dExp;
-    },
   },
   methods: {
     openExpModal: function () {
       this.expDialog = true;
     },
-    adjustdExp: function (n) {
-      this.dExp += n;
-    },
-    updateExp: function () {
-      this.$store.commit({
-        type: 'UPDATE_EXP',
-        amount: this.dExp,
-      });
-
-      this.closeExpDialog();
-    },
-    closeExpDialog: function() {
+    closeExpModal: function() {
       this.expDialog = false;
-    },
+    }
   },
 }
 </script>
