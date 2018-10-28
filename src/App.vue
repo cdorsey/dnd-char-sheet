@@ -42,6 +42,9 @@ export default {
     toggleDrawer: function() {
       this.drawer = !this.drawer;
     }
+  },
+  beforeCreate() {
+    this.$store.commit('INITIALIZE_STATE');
   }
 }
 </script>

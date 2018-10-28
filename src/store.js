@@ -4,6 +4,16 @@ import createLogger from 'vuex/dist/logger';
 
 Vue.use(Vuex);
 
+const syncToLocalStorage = function (store) {
+  store.subscribe((mutation, state) => {
+    if (localStorage === undefined) {
+      return;
+    }
+
+    localStorage.setItem('store', JSON.stringify(state));
+  });
+};
+
 export default new Vuex.Store({
   state: {
     name: '',
@@ -15,6 +25,13 @@ export default new Vuex.Store({
     level: 1,
   },
   mutations: {
+    INITIALIZE_STATE(state) {
+      const storedState = localStorage && JSON.parse(localStorage.getItem('store'));
+
+      if (storedState) {
+        this.replaceState(Object.assign(state, storedState));
+      }
+    },
     CHANGE_NAME(state, payload) {
       state.name = payload.name;
     },
@@ -38,5 +55,5 @@ export default new Vuex.Store({
     },
   },
   actions: {},
-  plugins: [createLogger()],
+  plugins: [createLogger(), syncToLocalStorage],
 });

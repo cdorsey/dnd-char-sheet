@@ -7,7 +7,7 @@ function mapToStore(mappings) {
       set(value) {
         const mutation = {};
         mutation.type = mapping.mutation;
-        mutation[mapping.payloadProp] = value;
+        mutation[mapping.storeProp] = value;
 
         this.$store.commit(mutation);
       },
