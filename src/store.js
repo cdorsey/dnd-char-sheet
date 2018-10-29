@@ -32,6 +32,9 @@ export default new Vuex.Store({
         this.replaceState(Object.assign(state, storedState));
       }
     },
+    SET_THEME(state, payload) {
+      state.appTheme = payload.appTheme;
+    },
     CHANGE_NAME(state, payload) {
       state.name = payload.name;
     },
