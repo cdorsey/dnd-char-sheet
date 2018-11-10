@@ -16,6 +16,11 @@ export default new Router({
       name: 'basic',
       component: () => import(/* webpackChunkName: "basic" */ './views/Basic.vue'),
     },
+    {
+      path: '/attributes',
+      name: 'attributes',
+      component: () => import(/* webpackChunkName: "attributes" */ './views/Attributes.vue')
+    }
     // {
     //   path: '/about',
     //   name: 'about',

@@ -43,6 +43,10 @@ export default {
         {
           display: 'Basic',
           route: '/basic'
+        },
+        {
+          display: 'Attributes',
+          route: '/attributes'
         }
       ]
     }

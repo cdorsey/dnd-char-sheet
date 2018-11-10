@@ -16,6 +16,7 @@ const syncToLocalStorage = function (store) {
 
 export default new Vuex.Store({
   state: {
+    appTheme: true,
     name: '',
     characterClass: '',
     background: '',
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     alignment: '',
     experience: 0,
     level: 1,
+    attr: {},
+    proficientSkills: [],
+    proficientThrows: [],
   },
   mutations: {
     INITIALIZE_STATE(state) {
@@ -55,6 +59,17 @@ export default new Vuex.Store({
     },
     UPDATE_EXP(state, payload) {
       state.experience += payload.amount;
+    },
+    UPDATE_ATTR(state, payload) {
+      Vue.set(state.attr, payload.attr, [payload.value, payload.modifier]);
+    },
+    ADD_PROF_SKILL(state, payload) {
+      const skill = payload.skill.toLowerCase();
+      state.proficientSkills = [...state.proficientSkills, skill];
+    },
+    REMOVE_PROF_SKILL(state, payload) {
+      const skill = payload.skill.toLowerCase();
+      state.proficientSkills = state.proficientSkills.filter(profSkill => profSkill !== skill);
     },
   },
   actions: {},
