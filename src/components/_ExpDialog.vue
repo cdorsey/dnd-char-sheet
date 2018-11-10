@@ -1,11 +1,10 @@
 <template>
-    <v-dialog :value="this.dialogValue">
+    <v-dialog persistent :value="this.dialogValue" max-width="500px" :return-value="this.dialogValue">
       <v-card>
         <v-layout column wrap>
-          <v-flex>
-            <v-btn color="info" @click="adjustdExp(10)">+10</v-btn>
-            <v-btn color="info" @click="adjustdExp(100)">+100</v-btn>
-            <v-btn color="info" @click="adjustdExp(1000)">+1000</v-btn>
+          <v-flex class="btn-container">
+            <v-btn v-for="i in [1, 2, 3]" :key="i"
+              color="info" class="grow" @click="adjustdExp(Math.pow(-10, i))">{{ Math.pow(10, i) }}</v-btn>
           </v-flex>
           <v-flex>
             <v-text-field
@@ -15,10 +14,9 @@
               :value="dExpDisplay"
             />
           </v-flex>
-          <v-flex>
-            <v-btn color="info" @click="adjustdExp(-10)">-10</v-btn>
-            <v-btn color="info" @click="adjustdExp(-100)">-100</v-btn>
-            <v-btn color="info" @click="adjustdExp(-1000)">-1000</v-btn>
+          <v-flex class="btn-container">
+            <v-btn v-for="i in [1, 2, 3]" :key="i"
+              color="info" class="grow" @click="adjustdExp(Math.pow(-10, i))">{{ -Math.pow(10, i) }}</v-btn>
           </v-flex>
           <v-flex class="my-2"/>
           <v-flex class="px-2">
@@ -34,6 +32,14 @@
 input {
   max-height: none;
   text-align: inherit;
+}
+
+.btn-container {
+  display: flex;
+}
+
+.grow {
+  flex-grow: 1;
 }
 </style>
 

@@ -42,7 +42,7 @@
         readonly
         label="Experience"
         :value="experience"
-        @focus="openExpModal()"
+        @focus.stop="openExpModal()"
       />
     </v-flex>
     <exp-dialog
@@ -113,7 +113,7 @@ export default {
     openExpModal: function () {
       this.expDialog = true;
     },
-    closeExpModal: function() {
+    closeExpModal: function () {
       this.expDialog = false;
     }
   },
