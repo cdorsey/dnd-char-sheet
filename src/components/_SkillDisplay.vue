@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     modifier: function () {
-      return this.$store.state.attr[this.attr][1];
+      const attr = this.$store.state.attr[this.attr];
+      return attr && attr[1];
     },
     modifierDisplay: function () {
       const modifier = this.modifier;
